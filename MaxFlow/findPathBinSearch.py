@@ -12,15 +12,15 @@ class Graph:
             self.adj[edge[1]][edge[0]] = edge[2]
 
 def BFS(G, s, t, flow):
-    visited = [False]*G.V
-    parent = [-1]*G.V
+    visited = [False]*(G.V+1)
+    parent = [-1]*(G.V+1)
     q = []
     q.append(s)
     visited[s] =True
     
     while len(q) != 0:
         v = q.pop(0)
-        for i in range(G.V):
+        for i in range(1,G.V+1):
             if not visited[i] and G.adj[v][i] >= flow:
                 q.append(i)
                 visited[i] = True
@@ -42,9 +42,9 @@ def findBestPath(G, s, t):
     edges = sorted(edges, key=lambda edge: edge[2])
     q = len(edges)-1
     p = 0
-    if len(BFS(graph, s, t, edges[q][2])[1]) > 0:
+    if BFS(graph, s, t, edges[q][2])[0] > 0:
         return edges[q][2]
-    if len(BFS(graph, s, t, edges[p][2])[1]) == 0:
+    if BFS(graph, s, t, edges[p][2])[0] == 0:
         return 0
     while p < q-1:
         half = int((p+q)/2)
@@ -54,7 +54,7 @@ def findBestPath(G, s, t):
         elif flow == 0:
             q = half
 
-    if len(BFS(graph, s, t, edges[q][2])[1]) > 0:
+    if BFS(graph, s, t, edges[q][2])[0] > 0:
         return edges[q][2]
     else:
         return edges[p][2]
@@ -62,23 +62,23 @@ def findBestPath(G, s, t):
 
 
 
-# print("Expected: 4")
-# print("Actual: ", findBestPath(dimacs.loadWeightedGraph("MaxFlow/SampleGraphs/g1"), 1, 2), '\n')
+print("Expected: 4")
+print("Actual: ", findBestPath(dimacs.loadWeightedGraph("MaxFlow/SampleGraphs/g1"), 1, 2), '\n')
 
-# print("Expected: 90")
-# print("Actual: ", findBestPath(dimacs.loadWeightedGraph("MaxFlow/SampleGraphs/clique5"), 1, 2), '\n')
+print("Expected: 90")
+print("Actual: ", findBestPath(dimacs.loadWeightedGraph("MaxFlow/SampleGraphs/clique5"), 1, 2), '\n')
 
-# print("Expected: 89")
-# print("Actual: ", findBestPath(dimacs.loadWeightedGraph("MaxFlow/SampleGraphs/clique20"), 1, 2), '\n')
+print("Expected: 89")
+print("Actual: ", findBestPath(dimacs.loadWeightedGraph("MaxFlow/SampleGraphs/clique20"), 1, 2), '\n')
 
-# print("Expected: 98")
-# print("Actual: ", findBestPath(dimacs.loadWeightedGraph("MaxFlow/SampleGraphs/clique100"), 1, 2), '\n')
+print("Expected: 98")
+print("Actual: ", findBestPath(dimacs.loadWeightedGraph("MaxFlow/SampleGraphs/clique100"), 1, 2), '\n')
 
-# print("Expected: 99")
-# print("Actual: ", findBestPath(dimacs.loadWeightedGraph("MaxFlow/SampleGraphs/clique1000"), 1, 2), '\n')
+print("Expected: 99")
+print("Actual: ", findBestPath(dimacs.loadWeightedGraph("MaxFlow/SampleGraphs/clique1000"), 1, 2), '\n')
 
-# print("Expected: 9")
-# print("Actual: ", findBestPath(dimacs.loadWeightedGraph("MaxFlow/SampleGraphs/grid5x5"), 1, 2), '\n')
+print("Expected: 9")
+print("Actual: ", findBestPath(dimacs.loadWeightedGraph("MaxFlow/SampleGraphs/grid5x5"), 1, 2), '\n')
 
 print("Expected: 2735")
 print("Actual: ", findBestPath(dimacs.loadWeightedGraph("MaxFlow/SampleGraphs/grid100x100"), 1, 2), '\n')
