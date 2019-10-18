@@ -1,4 +1,6 @@
-import GraphReader.dimacs as dimacs
+import sys
+sys.path.append('/home/andrzej/GraphsLab/MaxFlow/GraphReader')
+import dimacs
 
 class Vertex:
     def __init__(self, id):
@@ -32,19 +34,8 @@ def findBestPath(G, s, t):
         if find(V[s-1]) == find(V[t-1]):
             return edge[2]
     
-print("Expected: 4")
-print("Actual: ", findBestPath(dimacs.loadWeightedGraph("MaxFlow/SampleGraphs/g1"), 1, 2))
 
-print("Expected: 90")
-print("Actual: ", findBestPath(dimacs.loadWeightedGraph("MaxFlow/SampleGraphs/clique5"), 1, 2))
+print(findBestPath(dimacs.loadWeightedGraph(sys.argv[1]),1,2))
 
-print("Expected: 89")
-print("Actual: ", findBestPath(dimacs.loadWeightedGraph("MaxFlow/SampleGraphs/clique20"), 1, 2))
-
-print("Expected: 98")
-print("Actual: ", findBestPath(dimacs.loadWeightedGraph("MaxFlow/SampleGraphs/clique100"), 1, 2))
-
-print("Expected: 99")
-print("Actual: ", findBestPath(dimacs.loadWeightedGraph("MaxFlow/SampleGraphs/clique1000"), 1, 2))
 
 
